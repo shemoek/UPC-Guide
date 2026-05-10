@@ -1,13 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <title>石大生存指南</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="中国石油大学（华东）生存指南 — 探店、生活、选课、社团、恋爱、搞钱、健身，全方位提升大学生活质量">
   <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="custom.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- 自定义封面（在 Docsify 外部，不会被覆盖） -->
+  <div id="customCover" class="custom-cover">
+    <div class="cover-bg"></div>
+    <div class="cover-content">
+      <div class="cover-badge">U P C</div>
+      <h1 class="cover-title">石大生存指南</h1>
+      <p class="cover-subtitle">点亮大学生活的每一张地图</p>
+      <p class="cover-desc">探店 · 生活 · 选课 · 社团 · 恋爱 · 搞钱 · 健身</p>
+      <div class="cover-arrow" id="coverArrow">
+        <span>开始探索</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 14L5 9h10l-5 5z" fill="currentColor"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- 导读卡片（在 Docsify 外部） -->
+  <div id="heroCards" class="hero-cards">
+    <h2 class="cards-section-title">探索指南目录</h2>
+    <div class="cards-container">
+      <a href="#/圣经" class="guide-card card-gold">
+        <div class="card-icon">📖</div>
+        <h3>石大新约·创世记</h3>
+        <p>一切的开端，新生必读的第一课</p>
+      </a>
+      <a href="#/?id=石大探店指南" class="guide-card card-red">
+        <div class="card-icon">🍜</div>
+        <h3>探店指南</h3>
+        <p>好望角·荷悦里·康大·城发悦邻广场</p>
+      </a>
+      <a href="#/text/校园" class="guide-card card-teal">
+        <div class="card-icon">🏫</div>
+        <h3>生活指南</h3>
+        <p>校园生活方方面面，提高幸福指数</p>
+      </a>
+      <a href="#/体育/体育篇" class="guide-card card-blue">
+        <div class="card-icon">💪</div>
+        <h3>体育 & 肉体改造</h3>
+        <p>健身、跑步、游泳、铁馆全攻略</p>
+      </a>
+      <a href="#/text/社团&二课" class="guide-card card-purple">
+        <div class="card-icon">🎭</div>
+        <h3>二课 & 社团志</h3>
+        <p>找到你的同好和组织</p>
+      </a>
+      <a href="#/text/脱单秘诀" class="guide-card card-pink">
+        <div class="card-icon">💕</div>
+        <h3>恋爱必修课</h3>
+        <p>十分钟，让你爱的人也爱上你</p>
+      </a>
+      <a href="#/text/小组作业" class="guide-card card-amber">
+        <div class="card-icon">🎯</div>
+        <h3>小组作业博弈论</h3>
+        <p>在合作与博弈中优雅生存</p>
+      </a>
+      <a href="#/text/家教" class="guide-card card-green">
+        <div class="card-icon">💰</div>
+        <h3>第一桶金 & 防骗指南</h3>
+        <p>兼职搞钱不踩坑</p>
+      </a>
+      <a href="#/text/校门" class="guide-card card-indigo">
+        <div class="card-icon">🏛️</div>
+        <h3>四大城门</h3>
+        <p>校门内外，出行的全部秘密</p>
+      </a>
+      <a href="#/线上" class="guide-card card-cyan">
+        <div class="card-icon">💻</div>
+        <h3>线上事务 & 选课</h3>
+        <p>数字校园生存必备技能</p>
+      </a>
+      <a href="#/text/地图" class="guide-card card-lime">
+        <div class="card-icon">🗺️</div>
+        <h3>地图</h3>
+        <p>校园及周边一图通览</p>
+      </a>
+      <a href="#/text/课程" class="guide-card card-rose">
+        <div class="card-icon">📚</div>
+        <h3>课程百科</h3>
+        <p>选课避坑，课程评价全收录</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- Docsify 渲染容器 -->
   <div id="app"></div>
+
   <script>
     window.$docsify = {
       name: '石大生存指南',
@@ -17,16 +107,48 @@
       },
       subMaxLevel: 2,
       auto2top: true,
-      // 👇 评论系统配置
+      coverpage: false,
+      onlyCover: false,
+      // 评论系统
       cusdis: {
-        appId: '15d36221-e8cc-4506-b2d5-fc79253e71d8', // 你的 appId
+        appId: '15d36221-e8cc-4506-b2d5-fc79253e71d8',
         host: 'https://cusdis.com',
         lang: 'zh-cn'
+      },
+      plugins: [
+        function(hook) {
+          hook.doneEach(function() {
+            var cover = document.getElementById('customCover');
+            var cards = document.getElementById('heroCards');
+            var path = window.location.hash;
+            if (path && path !== '#/' && path !== '') {
+              if (cover) cover.style.display = 'none';
+              if (cards) cards.style.display = 'none';
+            }
+          });
+        }
+      ]
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var arrow = document.getElementById('coverArrow');
+      if (arrow) {
+        arrow.addEventListener('click', function() {
+          var cover = document.getElementById('customCover');
+          var cards = document.getElementById('heroCards');
+          if (cover) {
+            cover.style.opacity = '0';
+            cover.style.transition = 'opacity 0.5s ease';
+            setTimeout(function() { cover.style.display = 'none'; }, 500);
+          }
+          if (cards) {
+            cards.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
       }
-    }
+    });
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-  <!-- 一定要用这一个插件即可 -->
   <script src="https://cusdis.com/js/cusdis.docsify.js"></script>
 </body>
 </html>
